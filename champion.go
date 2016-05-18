@@ -11,7 +11,7 @@ import (
 func (c *RiotClient) GetChampions(freeToPlay bool) (*ChampionListDTO, error) {
 	// Uses the free to play optional value from func params
 	params := &url.Values{
-		freeToPlay: {strconv.FormatBool(freeToPlay)},
+		"freeToPlay": {strconv.FormatBool(freeToPlay)},
 	}
 
 	// Performs the http request to Riots API to retrieve all the champions
