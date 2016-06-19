@@ -1,4 +1,4 @@
-// Currently up to date as of summoner-v1.4
+// Package goriot : Currently up to date as of summoner-v1.4
 package goriot
 
 import "encoding/json"

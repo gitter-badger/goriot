@@ -1,4 +1,4 @@
-// Currently up to date as of featured-games-v1.0
+// Package goriot : Currently up to date as of featured-games-v1.0
 package goriot
 
 import "encoding/json"

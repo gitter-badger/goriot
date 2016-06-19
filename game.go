@@ -1,4 +1,4 @@
-// Currently up to date as of game-v1.3
+// Package goriot : Currently up to date as of game-v1.3
 package goriot
 
 import (

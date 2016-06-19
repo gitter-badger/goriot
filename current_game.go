@@ -1,4 +1,4 @@
-// Currently up to date as of current-game-v1.0
+// Package goriot : Currently up to date as of current-game-v1.0
 package goriot
 
 import (
@@ -11,7 +11,7 @@ import (
 func (c *RiotClient) GetCurrentGameInfo(region string, summonerID int64) (*CurrentGameInfo, error) {
 	// Performs the http request to Riots API to retrieve the current games information
 	resBody, err := c.riotRequest("/observer-mode/rest/consumer/getSpectatorGameInfo/"+
-		strings.ToUpper(c.Region)+"1/"+strconv.FormatInt(summonerID, 10), region, nil)
+		strings.ToUpper(region)+"1/"+strconv.FormatInt(summonerID, 10), region, nil)
 	if err != nil {
 		return nil, err
 	}

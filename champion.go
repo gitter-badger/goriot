@@ -1,4 +1,4 @@
-// Currently up to date as of champion-v1.2
+// Package goriot : Currently up to date as of champion-v1.2
 package goriot
 
 import (

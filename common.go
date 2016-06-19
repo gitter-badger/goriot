@@ -10,14 +10,18 @@ import (
 // information needed to make requests to the Riot API
 type RiotClient struct {
 	APIKey string
-	Region string
 }
 
 // NewRiotClient : A simple function used to create a client that will bind to Riots API
-func NewRiotClient(apiKey string) *RiotClient {
-	return &RiotClient{
-		APIKey: apiKey,
+func NewRiotClient(apiKey string) (*RiotClient, error) {
+	// Performs a test request in order to validate the api key
+	rc := new(RiotClient)
+	rc.APIKey = apiKey
+	_, err := rc.GetVersions("na")
+	if err != nil {
+		return nil, err
 	}
+	return rc, nil
 }
 
 // riotRequest : Func responsible for all http requests made to the Riot API
