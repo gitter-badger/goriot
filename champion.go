@@ -1,5 +1,5 @@
 // Currently up to date as of champion-v1.2
-package main
+package goriot
 
 import (
 	"encoding/json"

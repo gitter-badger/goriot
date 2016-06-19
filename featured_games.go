@@ -1,5 +1,5 @@
 // Currently up to date as of featured-games-v1.0
-package main
+package goriot
 
 import "encoding/json"
 

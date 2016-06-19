@@ -1,4 +1,4 @@
-package main
+package goriot
 
 // BannedChampion : A struct containing information on a banned champion
 type BannedChampion struct {

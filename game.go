@@ -1,5 +1,5 @@
 // Currently up to date as of game-v1.3
-package main
+package goriot
 
 import (
 	"encoding/json"

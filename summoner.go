@@ -1,5 +1,5 @@
 // Currently up to date as of summoner-v1.4
-package main
+package goriot
 
 import "encoding/json"
 
