@@ -256,3 +256,12 @@ type Rune struct {
 	Count  int   `json:"count"`  // The count of this rune used by the participant
 	RuneID int64 `json:"runeId"` // The ID of the rune
 }
+
+// SummonerDTO : A struct containing summoner information
+type SummonerDTO struct {
+	ID            int64  `json:"id"`            // Summoner ID
+	Name          string `json:"name"`          // Summoner name
+	ProfileIconID int    `json:"profileIconId"` // ID of the summoner icon associated with the summoner
+	RevisionDate  int64  `json:"revisionDate"`  // Date summoner was last modified specified as epoch milliseconds
+	SummonerLevel int64  `json:"summonerLevel"` // 	Summoner level associated with the summoner
+}

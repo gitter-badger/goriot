@@ -2,10 +2,8 @@ package main
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 // RiotClient : A globally used struct used to store
@@ -16,22 +14,20 @@ type RiotClient struct {
 }
 
 // NewRiotClient : A simple function used to create a client that will bind to Riots API
-func NewRiotClient(apiKey string, region string) *RiotClient {
+func NewRiotClient(apiKey string) *RiotClient {
 	return &RiotClient{
 		APIKey: apiKey,
-		Region: strings.ToLower(region),
 	}
 }
 
 // riotRequest : Func responsible for all http requests made to the Riot API
-func (c *RiotClient) riotRequest(uri string, params *url.Values) ([]byte, error) {
+func (c *RiotClient) riotRequest(uri, region string, params *url.Values) ([]byte, error) {
 	// Builds out the request based on passed parameters
 	if params == nil {
 		params = &url.Values{}
 	}
 	params.Add("api_key", c.APIKey)
-	log.Println(params)
-	req, err := http.NewRequest("GET", "https://"+c.Region+".api.pvp.net"+uri+"?"+params.Encode(), nil)
+	req, err := http.NewRequest("GET", "https://"+region+".api.pvp.net"+uri+"?"+params.Encode(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +48,5 @@ func (c *RiotClient) riotRequest(uri string, params *url.Values) ([]byte, error)
 	if err != nil {
 		return nil, err
 	}
-	log.Println(string(body))
 	return body, nil
 }

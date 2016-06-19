@@ -8,10 +8,10 @@ import (
 )
 
 // GetCurrentGameInfo : Gets information on the current game by the summoner ID
-func (c *RiotClient) GetCurrentGameInfo(summonerID int64) (*CurrentGameInfo, error) {
+func (c *RiotClient) GetCurrentGameInfo(region string, summonerID int64) (*CurrentGameInfo, error) {
 	// Performs the http request to Riots API to retrieve the current games information
 	resBody, err := c.riotRequest("/observer-mode/rest/consumer/getSpectatorGameInfo/"+
-		strings.ToUpper(c.Region)+"1/"+strconv.FormatInt(summonerID, 10), nil)
+		strings.ToUpper(c.Region)+"1/"+strconv.FormatInt(summonerID, 10), region, nil)
 	if err != nil {
 		return nil, err
 	}
