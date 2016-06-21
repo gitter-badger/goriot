@@ -22,6 +22,19 @@ type ChampionDTO struct {
 	RankedPlayEnabled bool `json:"rankedPlayEnabled"` // Ranked play enabled flag.
 }
 
+// ChampionMasteryDTO : A struct containing single Champion Mastery information for player and champion combination
+type ChampionMasteryDTO struct {
+	ChampionID                   int64  `json:"championId"`                   // 	Champion ID for this entry
+	ChampionLevel                int    `json:"championLevel"`                // Champion level for specified player and champion combination
+	ChampionPoints               int    `json:"championPoints"`               // Total number of champion points for this player and champion combination - they are used to determine championLevel
+	ChampionPointsSinceLastLevel int64  `json:"championPointsSinceLastLevel"` // Number of points earned since current level has been achieved. Zero if player reached maximum champion level for this champion
+	ChampionPointsUntilNextLevel int64  `json:"championPointsUntilNextLevel"` // Number of points needed to achieve next level. Zero if player reached maximum champion level for this champion
+	ChestGranted                 bool   `json:"chestGranted"`                 // Is chest granted for this champion or not in current season
+	HighestGrade                 string `json:"highestGrade"`                 // The highest grade of this champion of current season
+	LastPlayTime                 int64  `json:"lastPlayTime"`                 // Last time this champion was played by this player - in Unix milliseconds time format
+	PlayerID                     int64  `json:"playerId"`                     // Player ID for this entry
+}
+
 // CurrentGameInfo : A struct containing information on a in-progress game
 type CurrentGameInfo struct {
 	BannedChampions   []BannedChampion         `json:"bannedChampions"`   // Banned champion information
