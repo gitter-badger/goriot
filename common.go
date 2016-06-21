@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // RiotClient : A globally used struct used to store
@@ -31,7 +32,17 @@ func (c *RiotClient) riotRequest(uri, region string, params *url.Values) ([]byte
 		params = &url.Values{}
 	}
 	params.Add("api_key", c.APIKey)
-	req, err := http.NewRequest("GET", "https://"+region+".api.pvp.net"+uri+"?"+params.Encode(), nil)
+
+	// Builds out the correct url
+	url := ""
+	if strings.Contains(uri, "shards") {
+		url = "http://status.leagueoflegends.com" + uri
+	} else {
+		url = "https://" + strings.ToLower(region) + ".api.pvp.net" + uri + "?" + params.Encode()
+	}
+
+	// Builds out a request struct to be executed on the Riot API
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -104,6 +104,14 @@ type GameDTO struct {
 	TeamID        int         `json:"teamId"`        // Team ID associated with game. Team ID 100 is blue team. Team ID 200 is purple team.
 }
 
+// Incident : A struct containing information on a service incident
+type Incident struct {
+	Active    bool      `json:"active"`
+	CreatedAt string    `json:"created_at"`
+	ID        int64     `json:"id"`
+	Updates   []Message `json:"updates"`
+}
+
 // LeagueDTO : A struct containing league informations
 type LeagueDTO struct {
 	Entries       []LeagueEntryDTO `json:"entries"`       // The requested league entries.
@@ -132,6 +140,17 @@ type LeagueEntryDTO struct {
 type Mastery struct {
 	MasteryID int64 `json:"masteryId"` // The ID of the mastery
 	Rank      int   `json:"rank"`      // The number of points put into this mastery by the user
+}
+
+// Message : A struct containing message information of an incident
+type Message struct {
+	Author       string        `json:"author"`
+	Content      string        `json:"content"`
+	CreatedAt    string        `json:"created_at"`
+	ID           string        `json:"id"`
+	Severity     string        `json:"serverity"`
+	Translations []Translation `json:"translations"`
+	UpdatedAt    string        `json:"updated_at"`
 }
 
 // MiniSeriesDTO : A struct containing mini series information
@@ -270,6 +289,33 @@ type Rune struct {
 	RuneID int64 `json:"runeId"` // The ID of the rune
 }
 
+// Service : Information on a service that is running on a shard
+type Service struct {
+	Incidents []Incident `json:"incidents"`
+	Name      string     `json:"name"`
+	Slug      string     `json:"slug"`
+	Status    string     `json:"status"`
+}
+
+// Shard : A struct containing status information
+type Shard struct {
+	Hostname  string   `json:"hostname"`
+	Locales   []string `json:"locales"`
+	Name      string   `json:"name"`
+	RegionTag string   `json:"region_tag"`
+	Slug      string   `json:"slug"`
+}
+
+// ShardStatus : The server status information pertaining to a particular region
+type ShardStatus struct {
+	Hostname  string    `json:"hostname"`
+	Locales   []string  `json:"locales"`
+	Name      string    `json:"name"`
+	RegionTag string    `json:"region_tag"`
+	Services  []Service `json:"services"`
+	Slug      string    `json:"slug"`
+}
+
 // SummonerDTO : A struct containing summoner information
 type SummonerDTO struct {
 	ID            int64  `json:"id"`            // Summoner ID
@@ -277,4 +323,11 @@ type SummonerDTO struct {
 	ProfileIconID int    `json:"profileIconId"` // ID of the summoner icon associated with the summoner
 	RevisionDate  int64  `json:"revisionDate"`  // Date summoner was last modified specified as epoch milliseconds
 	SummonerLevel int64  `json:"summonerLevel"` // 	Summoner level associated with the summoner
+}
+
+// Translation : A struct containing translation information
+type Translation struct {
+	Content   string `json:"content"`
+	Locale    string `json:"locale"`
+	UpdatedAt string `json:"updated_at"`
 }
