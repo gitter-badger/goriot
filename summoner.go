@@ -4,10 +4,10 @@ package goriot
 import "encoding/json"
 
 // GetSummonerByName : Get summoner objects mapped by standardized summoner name for a given list of summoner names
-func (c *RiotClient) GetSummonerByName(region string, summonerName ...string) (*map[string]SummonerDTO, error) {
+func (c *RiotClient) GetSummonerByName(region string, summonerNames ...string) (*map[string]SummonerDTO, error) {
 	// Builds the comma delimited string of summoner names used for query
 	sums := ""
-	for k, name := range summonerName {
+	for k, name := range summonerNames {
 		if k == 0 {
 			sums = name
 		} else {
