@@ -11,6 +11,6 @@ client := NewRiotClient("API_KEY_HERE")
 ```
 You can then easily perform requests on the RiotAPI using the above generated client struct. For example:
 ```
-summoners, _ := c.GetSummonerByName("na", "itsViz", "kylokatarn", "faker")
+summoners, _ := client.GetSummonerByName("na", "itsViz", "kylokatarn", "faker")
 ```
 The above example should return to you a map of SummonerDTO structs containing information on the provided summoners in the North American region.
