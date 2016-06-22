@@ -254,6 +254,27 @@ type MatchHistorySummaryDTO struct {
 	Win               bool   `json:"win"`
 }
 
+// MatchList : A struct containing match list information
+type MatchList struct {
+	EndIndex   int              `json:"endIndex"`
+	Matches    []MatchReference `json:"matches"`
+	StartIndex int              `json:"startIndex"`
+	TotalGames int              `json:"totalGames"`
+}
+
+// MatchReference : A struct containing match refernce information
+type MatchReference struct {
+	Champion   int64  `json:"champion"`
+	Lane       string `json:"lane"` // Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
+	MatchID    int64  `json:"matchId"`
+	PlatformID string `json:"platformId"`
+	Queue      string `json:"queue"` // Legal values: TEAM_BUILDER_DRAFT_RANKED_5x5, RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
+	Region     string `json:"region"`
+	Role       string `json:"role"`   // Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
+	Season     string `json:"season"` // Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015, PRESEASON2016, SEASON2016
+	Timestamp  int64  `json:"timestamp"`
+}
+
 // MiniSeriesDTO : A struct containing mini series information
 type MiniSeriesDTO struct {
 	Losses   int    `json:"losses"`   // Number of current losses in the mini series.
