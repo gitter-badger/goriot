@@ -7,35 +7,35 @@ import (
 )
 
 // GetLeaguesBySummonerID : Get leagues mapped by summoner ID for a given list of summoner IDs
-func (c *RiotClient) GetLeaguesBySummonerID(region string, summonerIDs ...string) (*map[string][]LeagueDTO, error) {
+func (c *RiotClient) GetLeaguesBySummonerID(region string, summonerIDs ...string) (map[string][]LeagueDTO, error) {
+	var leaguesMap map[string][]LeagueDTO
 	// Performs the http request to Riots API to retrieve all leagues
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v2.5/league/by-summoner/"+
 		strings.Join(summonerIDs, ","), region, nil)
 	if err != nil {
-		return nil, err
+		return leaguesMap, err
 	}
 
 	// Unmarshals the response JSON into our map of leagues
-	leaguesMap := new(map[string][]LeagueDTO)
-	if err := json.Unmarshal(resBody, leaguesMap); err != nil {
-		return nil, err
+	if err := json.Unmarshal(resBody, &leaguesMap); err != nil {
+		return leaguesMap, err
 	}
 	return leaguesMap, nil
 }
 
 // GetLeagueEntriesBySummonerID : Get league entries mapped by summoner ID for a given list of summoner IDs
-func (c *RiotClient) GetLeagueEntriesBySummonerID(region string, summonerIDs ...string) (*map[string][]LeagueDTO, error) {
+func (c *RiotClient) GetLeagueEntriesBySummonerID(region string, summonerIDs ...string) (map[string][]LeagueDTO, error) {
+	var leagueEntryMap map[string][]LeagueDTO
 	// Performs the http request on Riots API to retrieve all leagues
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v2.5/league/by-summoner/"+
 		strings.Join(summonerIDs, ",")+"/entry", region, nil)
 	if err != nil {
-		return nil, err
+		return leagueEntryMap, err
 	}
 
 	// Unmarshals the response JSON into our map of leagues
-	leagueEntryMap := new(map[string][]LeagueDTO)
-	if err := json.Unmarshal(resBody, leagueEntryMap); err != nil {
-		return nil, err
+	if err := json.Unmarshal(resBody, &leagueEntryMap); err != nil {
+		return leagueEntryMap, err
 	}
 	return leagueEntryMap, nil
 }
