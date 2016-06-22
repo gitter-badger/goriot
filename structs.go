@@ -1,5 +1,65 @@
 package goriot
 
+// AggregatedStatsDTO :
+type AggregatedStatsDTO struct {
+	AverageAssists              int `json:"averageAssists"`              // Dominion only
+	AverageChampionsKilled      int `json:"averageChampionsKilled"`      // Dominion only
+	AverageCombatPlayerScore    int `json:"averageCombatPlayerScore"`    // Dominion only
+	AverageNodeCapture          int `json:"averageNodeCapture"`          // Dominion only
+	AverageNodeCaptureAssist    int `json:"averageNodeCaptureAssist"`    // Dominion only
+	AverageNodeNeutralize       int `json:"averageNodeNeutralize"`       // Dominion only
+	AverageNodeNeutralizeAssist int `json:"averageNodeNeutralizeAssist"` // Dominion only
+	AverageNumDeaths            int `json:"averageNumDeaths"`            // Dominion only
+	AverageObjectivePlayerScore int `json:"averageObjectivePlayerScore"` // Dominion only
+	AverageTeamObjective        int `json:"averageTeamObjective"`        // Dominion only
+	AverageTotalPlayerScore     int `json:"averageTotalPlayerScore"`     // Dominion only
+	BotGamesPlayed              int `json:"botGamesPlayed"`
+	KillingSpree                int `json:"killingSpree"`
+	MaxAssists                  int `json:"maxAssists"` // Dominion only
+	MaxChampionsKilled          int `json:"maxChampionsKilled"`
+	MaxCombatPlayerScore        int `json:"maxCombatPlayerScore"` // Dominion only
+	MaxLargestCriticalStrike    int `json:"maxLargestCriticalStrike"`
+	MaxLargestKillingSpree      int `json:"maxLargestKillingSpree"`
+	MaxNodeCapture              int `json:"maxNodeCapture"`          // Dominion only
+	MaxNodeCaptureAssist        int `json:"maxNodeCaptureAssist"`    // Dominion only
+	MaxNodeNeutralize           int `json:"maxNodeNeutralize"`       // Dominion only
+	MaxNodeNeutralizeAssist     int `json:"maxNodeNeutralizeAssist"` // Dominion only
+	MaxNumDeaths                int `json:"maxNumDeaths"`            // Only returned for ranked statistics
+	MaxObjectivePlayerScore     int `json:"maxObjectivePlayerScore"` // Dominion only
+	MaxTeamObjective            int `json:"maxTeamObjective"`        // Dominion only
+	MaxTimePlayed               int `json:"maxTimePlayed"`
+	MaxTimeSpentLiving          int `json:"maxTimeSpentLiving"`
+	MaxTotalPlayerScore         int `json:"maxTotalPlayerScore"` // Dominion only
+	MostChampionKillsPerSession int `json:"mostChampionKillsPerSession"`
+	MostSpellsCast              int `json:"mostSpellsCast"`
+	NormalGamesPlayed           int `json:"normalGamesPlayed"`
+	RankedPremadeGamesPlayed    int `json:"rankedPremadeGamesPlayed"`
+	RankedSoloGamesPlayed       int `json:"rankedSoloGamesPlayed"`
+	TotalAssists                int `json:"totalAssists"`
+	TotalChampionKills          int `json:"totalChampionKills"`
+	TotalDamageDealt            int `json:"totalDamageDealt"`
+	TotalDamageTaken            int `json:"totalDamageTaken"`
+	TotalDeathsPerSession       int `json:"totalDeathsPerSession"` // Only returned for ranked statistics
+	TotalDoubleKills            int `json:"totalDoubleKills"`
+	TotalFirstBlood             int `json:"totalFirstBlood"`
+	TotalGoldEarned             int `json:"totalGoldEarned"`
+	TotalHeal                   int `json:"totalHeal"`
+	TotalMagicDamageDealt       int `json:"totalMagicDamageDealt"`
+	TotalMinionKills            int `json:"totalMinionKills"`
+	TotalNeutralMinionsKilled   int `json:"totalNeutralMinionsKilled"`
+	TotalNodeCapture            int `json:"totalNodeCapture"`    // Dominion only
+	TotalNodeNeutralize         int `json:"totalNodeNeutralize"` // Dominion only
+	TotalPentaKills             int `json:"totalPentaKills"`
+	TotalPhysicalDamageDealt    int `json:"totalPhysicalDamageDealt"`
+	TotalQuadraKills            int `json:"totalQuadraKills"`
+	TotalSessionsLost           int `json:"totalSessionsLost"`
+	TotalSessionsPlayed         int `json:"totalSessionsPlayed"`
+	TotalSessionsWon            int `json:"totalSessionsWon"`
+	TotalTripleKills            int `json:"totalTripleKills"`
+	TotalTurretsKilled          int `json:"totalTurretsKilled"`
+	TotalUnrealKills            int `json:"totalUnrealKills"`
+}
+
 // BannedChampion : A struct containing information on a banned champion
 type BannedChampion struct {
 	ChampionID int64 `json:"championId"` // The ID of the banned champion
@@ -33,6 +93,12 @@ type ChampionMasteryDTO struct {
 	HighestGrade                 string `json:"highestGrade"`                 // The highest grade of this champion of current season
 	LastPlayTime                 int64  `json:"lastPlayTime"`                 // Last time this champion was played by this player - in Unix milliseconds time format
 	PlayerID                     int64  `json:"playerId"`                     // Player ID for this entry
+}
+
+// ChampionStatsDTO : A struct containing a collection of champion stats information
+type ChampionStatsDTO struct {
+	ID    int                // Champion ID
+	Stats AggregatedStatsDTO // Aggregated stats associated with the champion
 }
 
 // CurrentGameInfo : A struct containing information on a in-progress game
@@ -217,6 +283,28 @@ type PlayerDTO struct {
 	ChampionID int   `json:"championId"` // Champion id associated with player.
 	SummonerID int64 `json:"summonerId"` // Summoner id associated with player.
 	TeamID     int   `json:"teamId"`     // Team id associated with player.
+}
+
+// PlayerStatsSummaryDTO : A struct containing player stats summary information
+type PlayerStatsSummaryDTO struct {
+	AggregatedStats       AggregatedStatsDTO `json:"aggregatedStats"`       // Aggregated stats
+	Losses                int                `json:"losses"`                // Number of losses for this queue type. Returned for ranked queue types only
+	ModifyDate            int64              `json:"modifyDate"`            // Date stats were last modified specified as epoch milliseconds
+	PlayerStatSummaryType string             `json:"playerStatSummaryType"` // Player stats summary type
+	Wins                  int                `json:"wins"`                  //	Number of wins for this queue type
+}
+
+// PlayerStatsSummaryListDTO : A struct containing a collection of player stats summary information
+type PlayerStatsSummaryListDTO struct {
+	PlayerStatSummaries []PlayerStatsSummaryDTO `json:"playerStatSummaries"` // Collection of player stats summaries associated with the summoner
+	SummonerID          int64                   `json:"summonerId"`          // Summoner ID
+}
+
+// RankedStatsDTO : A struct containing ranked stats information
+type RankedStatsDTO struct {
+	Champions  []ChampionStatsDTO `json:"champions"`  // Collection of aggregated stats summarized by champion
+	ModifyDate int64              `json:"modifyDate"` // Date stats were last modified specified as epoch milliseconds
+	SummonerID int64              `json:"summonerId"` // Summoner ID
 }
 
 // RawStatsDTO : A struct containing raw game stat information

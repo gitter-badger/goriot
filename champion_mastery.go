@@ -65,9 +65,7 @@ func (c *RiotClient) GetChampionMasteryScore(region string, playerID int64) (int
 func (c *RiotClient) GetTopChampionMasteries(region string, playerID int64, count int) ([]ChampionMasteryDTO, error) {
 	var championMasteryDTOs []ChampionMasteryDTO
 	// Specifies the optional count query parameter
-	params := &url.Values{
-		"count": {strconv.Itoa(count)},
-	}
+	params := &url.Values{"count": {strconv.Itoa(count)}}
 
 	// Performs the http request on Riots API to retrieve the players top masteries
 	resBody, err := c.riotRequest("/championmastery/location/"+

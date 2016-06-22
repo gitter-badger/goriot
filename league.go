@@ -85,9 +85,7 @@ func (c *RiotClient) GetLeagueEntriesByTeamID(region string, teamIDs ...string) 
 func (c *RiotClient) GetChallengerLeagues(region string, teamType string) (LeagueDTO, error) {
 	var leagueDTO LeagueDTO
 	// Sets params for the type of team
-	params := &url.Values{
-		"type": {teamType},
-	}
+	params := &url.Values{"type": {teamType}}
 
 	// Performs the http request to Riots API to retrieve all challenger leagues
 	resBody, err := c.riotRequest("/api/lol/"+region+
@@ -107,9 +105,7 @@ func (c *RiotClient) GetChallengerLeagues(region string, teamType string) (Leagu
 func (c *RiotClient) GetMasterLeagues(region string, teamType string) (LeagueDTO, error) {
 	var leagueDTO LeagueDTO
 	// Sets params for the type of team
-	params := &url.Values{
-		"type": {teamType},
-	}
+	params := &url.Values{"type": {teamType}}
 
 	// Performs the http request to Riots API to retrieve all master leagues
 	resBody, err := c.riotRequest("/api/lol/"+region+

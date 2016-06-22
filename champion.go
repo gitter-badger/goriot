@@ -11,9 +11,7 @@ import (
 func (c *RiotClient) GetChampions(region string, freeToPlay bool) (ChampionListDTO, error) {
 	var championListDTO ChampionListDTO
 	// Uses the free to play optional value from func params
-	params := &url.Values{
-		"freeToPlay": {strconv.FormatBool(freeToPlay)},
-	}
+	params := &url.Values{"freeToPlay": {strconv.FormatBool(freeToPlay)}}
 
 	// Performs the http request on Riots API to retrieve all the champions
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v1.2/champion", region, params)
