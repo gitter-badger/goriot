@@ -142,6 +142,26 @@ type Mastery struct {
 	Rank      int   `json:"rank"`      // The number of points put into this mastery by the user
 }
 
+// MasteryDTO : A struct containing a users mastery information
+type MasteryDTO struct {
+	ID   int `json:"id"`   // Mastery ID. For static information correlating to masteries, please refer to the LoL Static Data API
+	Rank int `json:"rank"` // Mastery rank (i.e., the number of points put into this mastery)
+}
+
+// MasteryPagesDTO : A struct containing a users mastery pages
+type MasteryPagesDTO struct {
+	Page       []MasteryPageDTO `json:"pages"`      // Collection of mastery pages associated with the summoner
+	SummonerID int64            `json:"summonerId"` // Summoner ID
+}
+
+// MasteryPageDTO : A struct containing information on a mastery page
+type MasteryPageDTO struct {
+	Current   bool         `json:"current"`   // Indicates if the mastery page is the current mastery page
+	ID        int64        `json:"id"`        //	Mastery page ID
+	Masteries []MasteryDTO `json:"masteries"` // Collection of masteries associated with the mastery page
+	Name      string       `json:"name"`      // Mastery page name
+}
+
 // Message : A struct containing message information of an incident
 type Message struct {
 	Author       string        `json:"author"`
@@ -287,6 +307,26 @@ type RecentGamesDTO struct {
 type Rune struct {
 	Count  int   `json:"count"`  // The count of this rune used by the participant
 	RuneID int64 `json:"runeId"` // The ID of the rune
+}
+
+// RunePageDTO : A struct containing a players rune slots
+type RunePageDTO struct {
+	Current bool          `json:"current"` // Indicates if the page is the current page
+	ID      int64         `json:"id"`      // Rune page ID
+	Name    string        `json:"name"`    // Rune page name
+	Slots   []RuneSlotDTO `json:"slots"`   // Collection of rune slots associated with the rune page
+}
+
+// RunePagesDTO : A struct containing a players rune pages
+type RunePagesDTO struct {
+	Pages      []RunePageDTO `json:"pages"`      // Collection of rune pages associated with the summoner
+	SummonerID int64         `json:"summonerId"` // Summoner ID
+}
+
+// RuneSlotDTO : A struct containing information on a players rune page slot
+type RuneSlotDTO struct {
+	RuneID     int `json:"runeId"`     // This object contains rune slot information
+	RuneSlotID int `json:"runeSlotId"` // Rune slot ID
 }
 
 // Service : Information on a service that is running on a shard

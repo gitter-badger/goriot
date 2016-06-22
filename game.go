@@ -8,7 +8,7 @@ import (
 
 // GetRecentGames : Gets a list of recent games for the summoner passed
 func (c *RiotClient) GetRecentGames(region string, summonerID int64) (*RecentGamesDTO, error) {
-	// Performs the http request to Riots API to retrieve the current games information
+	// Performs the http request on Riots API to retrieve the current games information
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v1.3/game/by-summoner/"+
 		strconv.FormatInt(summonerID, 10)+"/recent", region, nil)
 	if err != nil {

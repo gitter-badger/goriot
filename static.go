@@ -5,7 +5,7 @@ import "encoding/json"
 
 // GetVersions : Retrieve version data
 func (c *RiotClient) GetVersions(region string) (*[]string, error) {
-	// Performs the http request to Riots API to retrieve version data
+	// Performs the http request on Riots API to retrieve version data
 	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/versions", "global", nil)
 	if err != nil {
 		return nil, err

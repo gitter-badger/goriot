@@ -4,14 +4,13 @@ package goriot
 import (
 	"encoding/json"
 	"strconv"
-	"strings"
 )
 
 // GetCurrentGameInfo : Gets information on the current game by the summoner ID
 func (c *RiotClient) GetCurrentGameInfo(region string, summonerID int64) (*CurrentGameInfo, error) {
-	// Performs the http request to Riots API to retrieve the current games information
+	// Performs the http request on Riots API to retrieve the current games information
 	resBody, err := c.riotRequest("/observer-mode/rest/consumer/getSpectatorGameInfo/"+
-		strings.ToUpper(region)+"1/"+strconv.FormatInt(summonerID, 10), region, nil)
+		region+"1/"+strconv.FormatInt(summonerID, 10), region, nil)
 	if err != nil {
 		return nil, err
 	}

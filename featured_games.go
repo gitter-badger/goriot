@@ -5,7 +5,7 @@ import "encoding/json"
 
 // GetFeaturedGames : Gets a list of featured in-progress games
 func (c *RiotClient) GetFeaturedGames(region string) (*FeaturedGames, error) {
-	// Performs the http request to Riots API to retrieve the current games information
+	// Performs the http request on Riots API to retrieve the current games information
 	resBody, err := c.riotRequest("/observer-mode/rest/featured", region, nil)
 	if err != nil {
 		return nil, err
