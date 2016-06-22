@@ -58,6 +58,12 @@ func (c *RiotClient) riotRequest(uri, region string, params *url.Values) ([]byte
 		return nil, err
 	}
 
+	// Checks response code and returns err if not 200
+	if res.StatusCode != 200 {
+		// TODO handle error codes
+		return nil, nil
+	}
+
 	// Reads and returns the body of the http.Response
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {

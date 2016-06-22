@@ -173,6 +173,21 @@ type Message struct {
 	UpdatedAt    string        `json:"updated_at"`
 }
 
+// MatchHistorySummaryDTO : A struct containing a summary of a summoners match history
+type MatchHistorySummaryDTO struct {
+	Assists           int    `json:"assists"`
+	Date              int64  `json:"date"` // Date that match was completed specified as epoch milliseconds
+	Deaths            int    `json:"deaths"`
+	GameID            int64  `json:"gameId"`
+	GameMode          string `json:"gameMode"`
+	Invalid           bool   `json:"invalid"`
+	Kills             int    `json:"kills"`
+	MapID             int    `json:"mapId"`
+	OpposingTeamKills int    `json:"opposingTeamKills"`
+	OpposingTeamName  string `json:"opposingTeamName"`
+	Win               bool   `json:"win"`
+}
+
 // MiniSeriesDTO : A struct containing mini series information
 type MiniSeriesDTO struct {
 	Losses   int    `json:"losses"`   // Number of current losses in the mini series.
@@ -303,6 +318,12 @@ type RecentGamesDTO struct {
 	SummonerID int64     `json:"summonerId"` // Summoner ID.
 }
 
+// RosterDTO : A struct containing a games/teams members
+type RosterDTO struct {
+	MemberList []TeamMemberInfoDTO `json:"memberList"`
+	OwnerID    int64               `json:"ownerId"`
+}
+
 // Rune : A struct containing information on a players rune
 type Rune struct {
 	Count  int   `json:"count"`  // The count of this rune used by the participant
@@ -363,6 +384,40 @@ type SummonerDTO struct {
 	ProfileIconID int    `json:"profileIconId"` // ID of the summoner icon associated with the summoner
 	RevisionDate  int64  `json:"revisionDate"`  // Date summoner was last modified specified as epoch milliseconds
 	SummonerLevel int64  `json:"summonerLevel"` // 	Summoner level associated with the summoner
+}
+
+// TeamDTO : A struct containing team information
+type TeamDTO struct {
+	CreateDate                    int64                    `json:"createDate"` // Date that team was created specified as epoch milliseconds
+	FullID                        string                   `json:"fullId"`
+	LastGameDate                  int64                    `json:"lastGameDate"`                  // Date that last game played by team ended specified as epoch milliseconds
+	LastJoinDate                  int64                    `json:"lastJoinDate"`                  // Date that last member joined specified as epoch milliseconds
+	LastJoinedRankedTeamQueueDate int64                    `json:"lastJoinedRankedTeamQueueDate"` // Date that team last joined the ranked team queue specified as epoch milliseconds
+	MatchHistory                  []MatchHistorySummaryDTO `json:"matchHistory"`
+	ModifyDate                    int64                    `json:"modifyDate"` // Date that team was last modified specified as epoch milliseconds
+	Name                          string                   `json:"name"`
+	Roster                        RosterDTO                `json:"roster"`
+	SecondLastJoinDate            int64                    `json:"secondLastJoinDate"` // Date that second to last member joined specified as epoch milliseconds
+	Status                        string                   `json:"status"`
+	Tag                           string                   `json:"tag"`
+	TeamStatDetails               []TeamStatDetailDTO      `json:"teamStatDetails"`
+	ThirdLastJoinDate             int64                    `json:"thirdLastJoinDate"` // Date that third to last member joined specified as epoch milliseconds
+}
+
+// TeamStatDetailDTO : A struct containing team statistics detail information
+type TeamStatDetailDTO struct {
+	AverageGamesPlayed int    `json:"averageGamesPlayed"`
+	Losses             int    `json:"losses"`
+	TeamStatType       string `json:"teamStatType"`
+	Wins               int    `json:"wins"`
+}
+
+// TeamMemberInfoDTO : A struct containing team member information
+type TeamMemberInfoDTO struct {
+	InviteDate int64  `json:"inviteDate"` // Date that team member was invited to team specified as epoch milliseconds
+	JoinDate   int64  `json:"joinDate"`   // Date that team member joined team specified as epoch milliseconds
+	PlayerID   int64  `json:"playerId"`
+	Status     string `json:"status"`
 }
 
 // Translation : A struct containing translation information
