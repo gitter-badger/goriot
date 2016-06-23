@@ -7,6 +7,11 @@ import (
 	"strconv"
 )
 
+// ChampionMasteryOpts : A struct containing optional parameters for the championmastery endpoint
+type ChampionMasteryOpts struct {
+	Count int
+}
+
 // CMChampionMasteryDTO : A struct containing single Champion Mastery information for player and champion combination
 type CMChampionMasteryDTO struct {
 	ChampionID                   int64  `json:"championId"`                   // 	Champion ID for this entry
@@ -31,7 +36,7 @@ func (c *RiotClient) GetChampionMastery(region string, playerID, championID int6
 		return championMasteryDTO, err
 	}
 
-	// Unmarshals the response JSON into our ChampionMasteryDTO struct
+	// Unmarshals the response JSON into our CMChampionMasteryDTO struct
 	if err := json.Unmarshal(resBody, &championMasteryDTO); err != nil {
 		return championMasteryDTO, err
 	}
@@ -49,7 +54,7 @@ func (c *RiotClient) GetAllChampionMasteries(region string, playerID int64) ([]C
 		return championMasteryDTOs, err
 	}
 
-	// Unmarshals the response JSON into our array of ChampionMasteryDTO structs
+	// Unmarshals the response JSON into our array of CMChampionMasteryDTO structs
 	if err := json.Unmarshal(resBody, &championMasteryDTOs); err != nil {
 		return championMasteryDTOs, err
 	}
@@ -75,10 +80,15 @@ func (c *RiotClient) GetChampionMasteryScore(region string, playerID int64) (int
 }
 
 // GetTopChampionMasteries : Get specified number of top champion mastery entries sorted by number of champion points descending
-func (c *RiotClient) GetTopChampionMasteries(region string, playerID int64, count int) ([]CMChampionMasteryDTO, error) {
+func (c *RiotClient) GetTopChampionMasteries(region string, playerID int64, opts *ChampionMasteryOpts) ([]CMChampionMasteryDTO, error) {
 	var championMasteryDTOs []CMChampionMasteryDTO
-	// Specifies the optional count query parameter
-	params := &url.Values{"count": {strconv.Itoa(count)}}
+	// Builds out query params based on options passed
+	params := &url.Values{}
+	if opts != nil {
+		if opts.Count != 0 {
+			params.Add("count", strconv.Itoa(opts.Count))
+		}
+	}
 
 	// Performs the http request on Riots API to retrieve the players top masteries
 	resBody, err := c.riotRequest("/championmastery/location/"+
@@ -88,7 +98,7 @@ func (c *RiotClient) GetTopChampionMasteries(region string, playerID int64, coun
 		return championMasteryDTOs, err
 	}
 
-	// Unmarshals the response JSON into our array of ChampionMasteryDTO structs
+	// Unmarshals the response JSON into our array of CMChampionMasteryDTO structs
 	if err := json.Unmarshal(resBody, &championMasteryDTOs); err != nil {
 		return championMasteryDTOs, err
 	}
