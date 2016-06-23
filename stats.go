@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	Season3    = "SEASON3"
-	Season2014 = "SEASON2014"
-	Season2015 = "SEASON2015"
-	Season2016 = "SEASON2016"
+// Season3 = "SEASON3"
+// Season2014 = "SEASON2014"
+// Season2015 = "SEASON2015"
+// Season2016 = "SEASON2016"
 )
 
 // SRankedStatsDTO : A struct containing ranked stats information

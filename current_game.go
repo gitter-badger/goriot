@@ -28,18 +28,18 @@ type CGBannedChampion struct {
 	TeamID     int64 `json:"teamId"`     // The ID of the team that banned the champion
 }
 
-// CGCurrentGameParticipant : A struct containing information on a player
-type CGCurrentGameParticipant struct {
-	Bot           bool                `json:"bot"`           // Flag indicating whether or not this participant is a bot
-	ChampionID    int64               `json:"championId"`    // The ID of the champion played by this participant
-	Masteries     []CGMastery         `json:"masteries"`     // The masteries used by this participant
-	ProfileIconID int64               `json:"profileIconId"` // The ID of the profile icon used by this participant
-	Runes         []CGParticipantRune `json:"runes"`         // The runes used by this participant
-	Spell1ID      int64               `json:"spell1Id"`      // The ID of the first summoner spell used by this participant
-	Spell2ID      int64               `json:"spell2Id"`      // The ID of the second summoner spell used by this participant
-	SummonerID    int64               `json:"summonerId"`    // The summoner ID of this participant
-	SummonerName  string              `json:"summonerName"`  // The summoner name of this participant
-	TeamID        int64               `json:"teamId"`        // The team ID of this participant, indicating the participant's team
+// CGParticipant : A struct containing information on a player
+type CGParticipant struct {
+	Bot           bool        `json:"bot"`           // Flag indicating whether or not this participant is a bot
+	ChampionID    int64       `json:"championId"`    // The ID of the champion played by this participant
+	Masteries     []CGMastery `json:"masteries"`     // The masteries used by this participant
+	ProfileIconID int64       `json:"profileIconId"` // The ID of the profile icon used by this participant
+	Runes         []CGRune    `json:"runes"`         // The runes used by this participant
+	Spell1ID      int64       `json:"spell1Id"`      // The ID of the first summoner spell used by this participant
+	Spell2ID      int64       `json:"spell2Id"`      // The ID of the second summoner spell used by this participant
+	SummonerID    int64       `json:"summonerId"`    // The summoner ID of this participant
+	SummonerName  string      `json:"summonerName"`  // The summoner name of this participant
+	TeamID        int64       `json:"teamId"`        // The team ID of this participant, indicating the participant's team
 }
 
 // CGObserver : A struct containing information on game observers
