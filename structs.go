@@ -118,16 +118,41 @@ type CurrentGameInfo struct {
 
 // CurrentGameParticipant : A struct containing information on a player
 type CurrentGameParticipant struct {
-	Bot           bool      `json:"bot"`           // Flag indicating whether or not this participant is a bot
-	ChampionID    int64     `json:"championId"`    // The ID of the champion played by this participant
-	Masteries     []Mastery `json:"masteries"`     // The masteries used by this participant
-	ProfileIconID int64     `json:"profileIconId"` // The ID of the profile icon used by this participant
-	Runes         []Rune    `json:"runes"`         // The runes used by this participant
-	Spell1ID      int64     `json:"spell1Id"`      // The ID of the first summoner spell used by this participant
-	Spell2ID      int64     `json:"spell2Id"`      // The ID of the second summoner spell used by this participant
-	SummonerID    int64     `json:"summonerId"`    // The summoner ID of this participant
-	SummonerName  string    `json:"summonerName"`  // The summoner name of this participant
-	TeamID        int64     `json:"teamId"`        // The team ID of this participant, indicating the participant's team
+	Bot           bool                         `json:"bot"`           // Flag indicating whether or not this participant is a bot
+	ChampionID    int64                        `json:"championId"`    // The ID of the champion played by this participant
+	Masteries     []Mastery                    `json:"masteries"`     // The masteries used by this participant
+	ProfileIconID int64                        `json:"profileIconId"` // The ID of the profile icon used by this participant
+	Runes         []CurrentGameParticipantRune `json:"runes"`         // The runes used by this participant
+	Spell1ID      int64                        `json:"spell1Id"`      // The ID of the first summoner spell used by this participant
+	Spell2ID      int64                        `json:"spell2Id"`      // The ID of the second summoner spell used by this participant
+	SummonerID    int64                        `json:"summonerId"`    // The summoner ID of this participant
+	SummonerName  string                       `json:"summonerName"`  // The summoner name of this participant
+	TeamID        int64                        `json:"teamId"`        // The team ID of this participant, indicating the participant's team
+}
+
+// Event : A struct containing game event information
+type Event struct {
+	AscendedType            string   `json:"ascendedType"`            // The ascended type of the event
+	AssistingParticipantIds []int    `json:"assistingParticipantIds"` // The assisting participant IDs of the event
+	BuildingType            string   `json:"buildingType"`            // The building type of the event
+	CreatorID               int      `json:"creatorId"`               // The creator ID of the event
+	EventType               string   `json:"eventType"`               // Event type
+	ItemAfter               int      `json:"itemAfter"`               // The ending item ID of the event
+	ItemBefore              int      `json:"itemBefore"`              // The starting item ID of the event
+	ItemID                  int      `json:"ItemID"`                  // The item ID of the event
+	KillerID                int      `json:"killerId"`                // The killer ID of the event
+	LaneType                string   `json:"laneType"`                // The lane type of the event
+	LevelUpType             string   `json:"levelUpType"`             // The level up type of the event
+	MonsterType             string   `json:"monsterType"`             // The monster type of the event
+	ParticipantID           int      `json:"participantId"`           // The participant ID of the event
+	PointCaptured           string   `json:"pointCaptured"`           // The point captured in the event
+	Position                Position `json:"position"`                // The position of the event
+	SkillSlot               int      `json:"skillSlot"`               // The skill slot of the event
+	TeamID                  int      `json:"teamId"`                  // The team ID of the event
+	Timestamp               int64    `json:"timestamp"`               // Represents how many milliseconds into the game the event occurred
+	TowerType               string   `json:"towerType"`               // The tower type of the event
+	VictimID                int      `json:"victimId"`                // The victim ID of the event
+	WardType                string   `json:"wardType"`                // 	The ward type of the event
 }
 
 // FeaturedGames : A collection of featured in-progress games
@@ -138,17 +163,24 @@ type FeaturedGames struct {
 
 // FeaturedGameInfo : A struct containing information on a particular featured in-progress game
 type FeaturedGameInfo struct {
-	BannedChampions   []BannedChampion `json:"bannedChampions"`   // Banned champion information
-	GameID            int64            `json:"gameId"`            // The ID of the game
-	GameLength        int64            `json:"gameLength"`        // The amount of time in seconds that has passed since the game started
-	GameMode          string           `json:"gameMode"`          // The game mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
-	GameQueueConfigID int64            `json:"gameQueueConfigId"` // The queue type (queue types are documented on the Game Constants page)
-	GameStartTime     int64            `json:"gameStartTime"`     // The game start time represented in epoch milliseconds
-	GameType          string           `json:"gameType"`          // The game type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
-	MapID             int64            `json:"mapId"`             // The ID of the map
-	Observers         Observer         `json:"observers"`         // The observer information
-	Participants      []Participant    `json:"participants"`      // The participant information
-	PlatformID        string           `json:"platformId"`        // The ID of the platform on which the game is being played
+	BannedChampions   []BannedChampion          `json:"bannedChampions"`   // Banned champion information
+	GameID            int64                     `json:"gameId"`            // The ID of the game
+	GameLength        int64                     `json:"gameLength"`        // The amount of time in seconds that has passed since the game started
+	GameMode          string                    `json:"gameMode"`          // The game mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+	GameQueueConfigID int64                     `json:"gameQueueConfigId"` // The queue type (queue types are documented on the Game Constants page)
+	GameStartTime     int64                     `json:"gameStartTime"`     // The game start time represented in epoch milliseconds
+	GameType          string                    `json:"gameType"`          // The game type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+	MapID             int64                     `json:"mapId"`             // The ID of the map
+	Observers         Observer                  `json:"observers"`         // The observer information
+	Participants      []FeaturedGameParticipant `json:"participants"`      // The participant information
+	PlatformID        string                    `json:"platformId"`        // The ID of the platform on which the game is being played
+}
+
+// Frame : A struct containing game frame information
+type Frame struct {
+	Events            []Event                     `json:"events"`            // List of events for this frame
+	ParticipantFrames map[string]ParticipantFrame `json:"participantFrames"` // Map of each participant ID to the participant's information for the frame
+	Timestamp         int64                       `json:"timestamp"`         // Map of each participant ID to the participant's information for the frame
 }
 
 // GameDTO : A struct containing game information
@@ -204,8 +236,8 @@ type LeagueEntryDTO struct {
 
 // Mastery : A struct containing information on a players mastery
 type Mastery struct {
-	MasteryID int64 `json:"masteryId"` // The ID of the mastery
-	Rank      int   `json:"rank"`      // The number of points put into this mastery by the user
+	MasteryID int64 `json:"masteryId"` // Mastery ID
+	Rank      int   `json:"rank"`      // Mastery rank
 }
 
 // MasteryDTO : A struct containing a users mastery information
@@ -228,15 +260,23 @@ type MasteryPageDTO struct {
 	Name      string       `json:"name"`      // Mastery page name
 }
 
-// Message : A struct containing message information of an incident
-type Message struct {
-	Author       string        `json:"author"`
-	Content      string        `json:"content"`
-	CreatedAt    string        `json:"created_at"`
-	ID           string        `json:"id"`
-	Severity     string        `json:"serverity"`
-	Translations []Translation `json:"translations"`
-	UpdatedAt    string        `json:"updated_at"`
+// MatchDetail : A struct containing a match detail information
+type MatchDetail struct {
+	MapID                 int                   `json:"mapId"`                 // Match map ID
+	MatchCreation         int64                 `json:"matchCreation"`         // Match creation time
+	MatchDuration         int64                 `json:"matchDuration"`         // Match duration
+	MatchID               int64                 `json:"matchId"`               // ID of the match
+	MatchMode             string                `json:"matchMode"`             // Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+	MatchType             string                `json:"matchType"`             // Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+	MatchVersion          string                `json:"matchVersion"`          // Match version
+	ParticipantIdentities []ParticipantIdentity `json:"participantIdentities"` // Participant identity information
+	Participants          []MatchParticipant    `json:"participants"`          // Participant information
+	PlatformID            string                `json:"platformId"`            // Platform ID of the match
+	QueueType             string                `json:"queueType"`             // Match queue type
+	Region                string                `json:"region"`                // Region where the match was played
+	Season                string                `json:"season"`                // Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015, PRESEASON2016, SEASON2016)
+	Teams                 []Team                `json:"teams"`                 // Team information
+	Timeline              Timeline              `json:"timeline"`              // Match timeline data (not included by default)
 }
 
 // MatchHistorySummaryDTO : A struct containing a summary of a summoners match history
@@ -262,6 +302,26 @@ type MatchList struct {
 	TotalGames int              `json:"totalGames"`
 }
 
+// MatchParticipant : A struct containing match participant information
+type MatchParticipant struct {
+	ChampionID                int                    `json:"championId"`                //	Champion ID
+	HighestAchievedSeasonTier string                 `json:"HighestAchievedSeasonTier"` // Highest ranked tier achieved for the previous season, if any, otherwise null
+	Masteries                 []Mastery              `json:"masteries"`                 // List of mastery information
+	ParticipantID             int                    `json:"participantId"`             // Participant ID
+	Runes                     []MatchParticipantRune `json:"runes"`                     // List of rune information
+	Spell1ID                  int                    `json:"spell1Id"`                  //	First summoner spell ID
+	Spell2ID                  int                    `json:"spell2Id"`                  // Second summoner spell ID
+	Stats                     ParticipantStats       `json:"stats"`                     // Participant statistics
+	TeamID                    int                    `json:"teamID"`                    // Team ID
+	Timeline                  ParticipantTimeline    `json:"timeline"`                  // Timeline data
+}
+
+// MatchParticipantRune : A struct containing rune information on a match participant
+type MatchParticipantRune struct {
+	Rank   int64 `json:"rank"`   // Rune rank
+	RuneID int64 `json:"runeId"` // Rune ID
+}
+
 // MatchReference : A struct containing match refernce information
 type MatchReference struct {
 	Champion   int64  `json:"champion"`
@@ -273,6 +333,17 @@ type MatchReference struct {
 	Role       string `json:"role"`   // Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
 	Season     string `json:"season"` // Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015, PRESEASON2016, SEASON2016
 	Timestamp  int64  `json:"timestamp"`
+}
+
+// Message : A struct containing message information of an incident
+type Message struct {
+	Author       string        `json:"author"`
+	Content      string        `json:"content"`
+	CreatedAt    string        `json:"created_at"`
+	ID           string        `json:"id"`
+	Severity     string        `json:"serverity"`
+	Translations []Translation `json:"translations"`
+	UpdatedAt    string        `json:"updated_at"`
 }
 
 // MiniSeriesDTO : A struct containing mini series information
@@ -288,8 +359,8 @@ type Observer struct {
 	EncryptionKey string `json:"encryptionKey"` // Key used to decrypt the spectator grid game data for playback
 }
 
-// Participant : A struct containing information on a game participant
-type Participant struct {
+// FeaturedGameParticipant : A struct containing information on a game participant
+type FeaturedGameParticipant struct {
 	Bot           bool   `json:"bot"`           // Flag indicating whether or not this participant is a bot
 	ChampionID    int64  `json:"championId"`    // The ID of the champion played by this participant
 	ProfileIconID int64  `json:"profileIconId"` // The ID of the profile icon used by this participant
@@ -297,6 +368,140 @@ type Participant struct {
 	Spell2ID      int64  `json:"spell2Id"`      // The ID of the second summoner spell used by this participant
 	SummonerName  string `json:"summonerName"`  // The summoner name of this participant
 	TeamID        int64  `json:"teamId"`        // The team ID of this participant, indicating the participant's team
+}
+
+// ParticipantFrame : A struct containing participant fame information
+type ParticipantFrame struct {
+	CurrentGold         int      `json:"currentGold"`         // Participant's current gold
+	DominionScore       int      `json:"dominionScore"`       // Dominion score of the participant
+	JungleMinionsKilled int      `json:"jungleMinionsKilled"` // Number of jungle minions killed by participant
+	Level               int      `json:"level"`               // Participant's current level
+	MinionsKilled       int      `json:"minionsKilled"`       // Number of minions killed by participant
+	ParticipantID       int      `json:"participantId"`       // Participant ID
+	Position            Position `json:"position"`            // Participant's position
+	TeamScore           int      `json:"teamScore"`           // Team score of the participant
+	TotalGold           int      `json:"totalGold"`           // Participant's total gold
+	XP                  int      `json:"xp"`                  // Experience earned by participant
+}
+
+// ParticipantIdentity : A struct containing participant identity information
+type ParticipantIdentity struct {
+	ParticipantID int    `json:"participantId"` // Participant ID
+	Player        Player `json:"player"`        // Player Information
+}
+
+// ParticipantStats : A struct containing participant statistics information
+type ParticipantStats struct {
+	Assists                         int64 `json:"assists"`                         // Number of assists
+	ChampLevel                      int64 `json:"champLevel"`                      // Champion level achieved
+	CombatPlayerScore               int64 `json:"combatPlayerScore"`               // If game was a dominion game, player's combat score, otherwise 0
+	Deaths                          int64 `json:"deaths"`                          // Number of deaths
+	DoubleKills                     int64 `json:"doubleKills"`                     // Number of double kills
+	FirstBloodAssist                bool  `json:"firstBloodAssist"`                // Flag indicating if participant got an assist on first blood
+	FirstBloodKill                  bool  `json:"firstBloodKill"`                  // Flag indicating if participant got first blood
+	FirstInhibitorAssist            bool  `json:"firstInhibitorAssist"`            // Flag indicating if participant got an assist on the first inhibitor
+	FirstInhibitorKill              bool  `json:"firstInhibitorKill"`              // Flag indicating if participant destroyed the first inhibitor
+	FirstTowerAssist                bool  `json:"firstTowerAssist"`                // Flag indicating if participant got an assist on the first tower
+	FirstTowerKill                  bool  `json:"firstTowerKill"`                  // Flag indicating if participant destroyed the first tower
+	GoldEarned                      int64 `json:"goldEarned"`                      // Gold earned
+	GoldSpent                       int64 `json:"goldSpent"`                       // Gold spent
+	InhibitorKills                  int64 `json:"inhibitorKills"`                  // Number of inhibitor kills
+	Item0                           int64 `json:"item0"`                           // First item ID
+	Item1                           int64 `json:"item1"`                           // Second item ID
+	Item2                           int64 `json:"item2"`                           // Third item ID
+	Item3                           int64 `json:"item3"`                           // Fourth item ID
+	Item4                           int64 `json:"item4"`                           // Fifth item ID
+	Item5                           int64 `json:"item5"`                           // Sixth item ID
+	Item6                           int64 `json:"item6"`                           // Seventh item ID
+	KillingSprees                   int64 `json:"killingSprees"`                   // Number of killing sprees
+	Kills                           int64 `json:"kills"`                           // Number of kills
+	LargestCriticalStrike           int64 `json:"largestCriticalStrike"`           // Largest critical strike
+	LargestKillingSpree             int64 `json:"largestKillingSpree"`             // Largest killing spree
+	LargestMultiKill                int64 `json:"largestMultiKill"`                // Largest multi kill
+	MagicDamageDealt                int64 `json:"magicDamageDealt"`                // Magical damage dealt
+	MagicDamageDealtToChampions     int64 `json:"magicDamageDealtToChampions"`     // Magical damage dealt to champions
+	MagicDamageTaken                int64 `json:"magicDamageTaken"`                // Magic damage taken
+	MinionsKilled                   int64 `json:"minionsKilled"`                   // Minions killed
+	NeutralMinionsKilled            int64 `json:"neutralMinionsKilled"`            // Neutral minions killed
+	NeutralMinionsKilledEnemyJungle int64 `json:"neutralMinionsKilledEnemyJungle"` // Neutral jungle minions killed in the enemy team's jungle
+	NeutralMinionsKilledTeamJungle  int64 `json:"neutralMinionsKilledTeamJungle"`  // Neutral jungle minions killed in your team's jungle
+	NodeCapture                     int64 `json:"nodeCapture"`                     // If game was a dominion game, number of node captures
+	NodeCaptureAssist               int64 `json:"nodeCaptureAssist"`               // If game was a dominion game, number of node capture assists
+	NodeNeutralize                  int64 `json:"nodeNeutralize"`                  // If game was a dominion game, number of node neutralizations
+	NodeNeutralizeAssist            int64 `json:"nodeNeutralizeAssist"`            // If game was a dominion game, number of node neutralization assists
+	ObjectivePlayerScore            int64 `json:"objectivePlayerScore"`            // If game was a dominion game, player's objectives score, otherwise 0
+	PentaKills                      int64 `json:"pentaKills"`                      // Number of penta kills
+	PhysicalDamageDealt             int64 `json:"physicalDamageDealt"`             // Physical damage dealt
+	PhysicalDamageDealtToChampions  int64 `json:"physicalDamageDealtToChampions"`  // Physical damage dealt to champions
+	PhysicalDamageTaken             int64 `json:"physicalDamageTaken"`             // Physical damage taken
+	QuadraKills                     int64 `json:"quadraKills"`                     // Number of quadra kills
+	SightWardsBoughtInGame          int64 `json:"sightWardsBoughtInGame"`          // Sight wards purchased
+	TeamObjective                   int64 `json:"teamObjective"`                   // If game was a dominion game, number of completed team objectives (i.e., quests)
+	TotalDamageDealt                int64 `json:"totalDamageDealt"`                // Total damage dealt
+	TotalDamageDealtToChampions     int64 `json:"totalDamageDealtToChampions"`     // Total damage dealt to champions
+	TotalDamageTaken                int64 `json:"totalDamageTaken"`                //	Total damage taken
+	TotalHeal                       int64 `json:"totalHeal"`                       // Total heal amount
+	TotalPlayerScore                int64 `json:"totalPlayerScore"`                // If game was a dominion game, player's total score, otherwise 0
+	TotalScoreRank                  int64 `json:"totalScoreRank"`                  // If game was a dominion game, team rank of the player's total score (e.g., 1-5)
+	TotalTimeCrowdControlDealt      int64 `json:"totalTimeCrowdControlDealt"`      // totalTimeCrowdControlDealt
+	TotalUnitsHealed                int64 `json:"totalUnitsHealed"`                // Total units healed
+	TowerKills                      int64 `json:"towerKills"`                      // Number of tower kills
+	TripleKills                     int64 `json:"tripleKills"`                     // Number of triple kills
+	TrueDamageDealt                 int64 `json:"trueDamageDealt"`                 // True damage dealt
+	TrueDamageDealtToChampions      int64 `json:"trueDamageDealtToChampions"`      // True damage dealt to champions
+	TrueDamageTaken                 int64 `json:"trueDamageTaken"`                 // True damage taken
+	UnrealKills                     int64 `json:"unrealKills"`                     // Number of unreal kills
+	VisionWardsBoughtInGame         int64 `json:"visionWardsBoughtInGame"`         // Vision wards purchased
+	WardsKilled                     int64 `json:"wardsKilled"`                     // Number of wards killed
+	WardsPlaced                     int64 `json:"wardsPlaced"`                     // Number of wards placed
+	Winner                          bool  `json:"winner"`                          // Flag indicating whether or not the participant won
+}
+
+// ParticipantTimeline : A struct containing all timeline information
+type ParticipantTimeline struct {
+	AncientGolemAssistsPerMinCounts ParticipantTimelineData `json:"ancientGolemAssistsPerMinCounts"` // Ancient golem assists per minute timeline counts
+	AncientGolemKillsPerMinCounts   ParticipantTimelineData `json:"AncientGolemKillsPerMinCounts"`   // Ancient golem kills per minute timeline counts
+	AssistedLaneDeathsPerMinDeltas  ParticipantTimelineData `json:"assistedLaneDeathsPerMinDeltas"`  // Assisted lane deaths per minute timeline data
+	AssistedLaneKillsPerMinDeltas   ParticipantTimelineData `json:"assistedLaneKillsPerMinDeltas"`   // Assisted lane kills per minute timeline data
+	BaronAssistsPerMinCounts        ParticipantTimelineData `json:"baronAssistsPerMinCounts"`        // Baron assists per minute timeline counts
+	BaronKillsPerMinCounts          ParticipantTimelineData `json:"baronKillsPerMinCounts"`          // Baron kills per minute timeline counts
+	CreepsPerMinDeltas              ParticipantTimelineData `json:"creepsPerMinDeltas"`              // Creeps per minute timeline data
+	CSDiffPerMinDeltas              ParticipantTimelineData `json:"csDiffPerMinDeltas"`              // Creep score difference per minute timeline data
+	DamageTakenDiffPerMinDeltas     ParticipantTimelineData `json:"damageTakenDiffPerMinDeltas"`     // Damage taken difference per minute timeline data
+	DamageTakenPerMinDeltas         ParticipantTimelineData `json:"damageTakenPerMinDeltas"`         // Damage taken per minute timeline data
+	DragonAssistsPerMinCounts       ParticipantTimelineData `json:"dragonAssistsPerMinCounts"`       // Dragon assists per minute timeline counts
+	DragonKillsPerMinCounts         ParticipantTimelineData `json:"dragonKillsPerMinCounts"`         // Dragon kills per minute timeline counts
+	ElderLizardAssistsPerMinCounts  ParticipantTimelineData `json:"elderLizardAssistsPerMinCounts"`  // Elder lizard assists per minute timeline counts
+	ElderLizardKillsPerMinCounts    ParticipantTimelineData `json:"elderLizardKillsPerMinCounts"`    // Elder lizard kills per minute timeline counts
+	GoldPerMinDeltas                ParticipantTimelineData `json:"goldPerMinDeltas"`                // Gold per minute timeline data
+	InhibitorAssistsPerMinCounts    ParticipantTimelineData `json:"inhibitorAssistsPerMinCounts"`    // Inhibitor assists per minute timeline counts
+	InhibitorKillsPerMinCounts      ParticipantTimelineData `json:"inhibitorKillsPerMinCounts"`      // Inhibitor kills per minute timeline counts
+	Lane                            string                  `json:"lane"`                            // Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
+	Role                            string                  `json:"role"`                            // Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
+	TowerAssistsPerMinCounts        ParticipantTimelineData `json:"towerAssistsPerMinCounts"`        // Tower assists per minute timeline counts
+	TowerKillsPerMinCounts          ParticipantTimelineData `json:"towerKillsPerMinCounts"`          // Tower kills per minute timeline counts
+	TowerKillsPerMinDeltas          ParticipantTimelineData `json:"towerKillsPerMinDeltas"`          // Tower kills per minute timeline data
+	VilemawAssistsPerMinCounts      ParticipantTimelineData `json:"vilemawAssistsPerMinCounts"`      // Vilemaw assists per minute timeline counts
+	VilemawKillsPerMinCounts        ParticipantTimelineData `json:"vilemawKillsPerMinCounts"`        // Vilemaw kills per minute timeline counts
+	WardsPerMinDeltas               ParticipantTimelineData `json:"wardsPerMinDeltas"`               // Wards placed per minute timeline data
+	XPDiffPerMinDeltas              ParticipantTimelineData `json:"xpDiffPerMinDeltas"`              // Experience difference per minute timeline data
+	XPPerMinDeltas                  ParticipantTimelineData `json:"xpPerMinDeltas"`                  // Experience per minute timeline data
+}
+
+// ParticipantTimelineData : A struct containing timeline data
+type ParticipantTimelineData struct {
+	TenToTwenty    float64 `json:"tenToTwenty"`    // Value per minute from 10 min to 20 min
+	ThirtyToEnd    float64 `json:"thirtyToEnd"`    // Value per minute from 30 min to the end of the game
+	TwentyToThirty float64 `json:"twentyToThirty"` // Value per minute from 20 min to 30 min
+	ZeroToTen      float64 `json:"zeroToTen"`      // Value per minute from the beginning of the game to 10 min
+}
+
+// Player : A struct containing match player information
+type Player struct {
+	MatchHistoryURI string `json:"matchHistoryUri"` // Match history URI
+	ProfileIcon     int    `json:"profileIcon"`     // Profile icon ID
+	SummonerID      int64  `json:"summonerId"`      // Summoner ID
+	SummonerName    string `json:"summonerName"`    // Summoner name
 }
 
 // PlayerDTO : A struct containing player information
@@ -319,6 +524,12 @@ type PlayerStatsSummaryDTO struct {
 type PlayerStatsSummaryListDTO struct {
 	PlayerStatSummaries []PlayerStatsSummaryDTO `json:"playerStatSummaries"` // Collection of player stats summaries associated with the summoner
 	SummonerID          int64                   `json:"summonerId"`          // Summoner ID
+}
+
+// Position : A struct containing participant frame position information
+type Position struct {
+	X int `json:"x"` // X coordinate of the position
+	Y int `json:"y"` // Y coordinate of the position
 }
 
 // RankedStatsDTO : A struct containing ranked stats information
@@ -433,8 +644,8 @@ type RosterDTO struct {
 	OwnerID    int64               `json:"ownerId"`
 }
 
-// Rune : A struct containing information on a players rune
-type Rune struct {
+// CurrentGameParticipantRune : A struct containing information on a players rune
+type CurrentGameParticipantRune struct {
 	Count  int   `json:"count"`  // The count of this rune used by the participant
 	RuneID int64 `json:"runeId"` // The ID of the rune
 }
@@ -495,6 +706,26 @@ type SummonerDTO struct {
 	SummonerLevel int64  `json:"summonerLevel"` // 	Summoner level associated with the summoner
 }
 
+// Team : A struct containing team information
+type Team struct {
+	Bans                 []BannedChampion `json:"bans"`                 // If game was draft mode, contains banned champion data, otherwise null
+	BaronKills           int              `json:"baronKills"`           // Number of times the team killed baron
+	DominionVictoryScore int64            `json:"dominionVictoryScore"` // If game was a dominion game, specifies the points the team had at game end, otherwise null
+	DragonKills          int              `json:"dragonKills"`          // Number of times the team killed dragon
+	FirstBaron           bool             `json:"firstBaron"`           // Flag indicating whether or not the team got the first baron kill
+	FirstBlood           bool             `json:"firstBlood"`           // Flag indicating whether or not the team got first blood
+	FirstDragon          bool             `json:"firstDragon"`          // Flag indicating whether or not the team got the first dragon kill
+	FirstInhibitor       bool             `json:"firstInhibitor"`       // Flag indicating whether or not the team destroyed the first inhibitor
+	FirstRiftHerald      bool             `json:"firstRiftHerald"`      // 	Flag indicating whether or not the team got the first rift herald kill
+	FirstTower           bool             `json:"firstTower"`           // Flag indicating whether or not the team destroyed the first tower
+	InhibitorKills       int              `json:"inhibitorKills"`       // Number of inhibitors the team destroyed
+	RiftHeraldKills      int              `json:"riftHeraldKills"`      // Number of times the team killed rift herald
+	TeamID               int              `json:"teamId"`               // Team ID
+	TowerKills           int              `json:"towerKills"`           // Number of towers the team destroyed
+	VilemawKills         int              `json:"vilemawKills"`         // Number of times the team killed vilemaw
+	Winner               bool             `json:"winner"`               // Flag indicating whether or not the team won
+}
+
 // TeamDTO : A struct containing team information
 type TeamDTO struct {
 	CreateDate                    int64                    `json:"createDate"` // Date that team was created specified as epoch milliseconds
@@ -527,6 +758,12 @@ type TeamMemberInfoDTO struct {
 	JoinDate   int64  `json:"joinDate"`   // Date that team member joined team specified as epoch milliseconds
 	PlayerID   int64  `json:"playerId"`
 	Status     string `json:"status"`
+}
+
+// Timeline : A struct containing game timeline information
+type Timeline struct {
+	FrameInterval int64   `json:"frameInterval"` // Time between each returned frame in milliseconds
+	Frames        []Frame `json:"frames"`        // List of timeline frames for the game
 }
 
 // Translation : A struct containing translation information

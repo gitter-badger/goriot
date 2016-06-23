@@ -48,6 +48,8 @@ func (c *RiotClient) GetLeagueEntriesBySummonerID(region string, summonerIDs ...
 }
 
 // GetLeaguesByTeamID : Get leagues mapped by team ID for a given list of team IDs
+// NOTE : This func is most likely returning no data as 5's teams are no longer
+// a think and can therefore not be in a league
 func (c *RiotClient) GetLeaguesByTeamID(region string, teamIDs ...string) (map[string][]LeagueDTO, error) {
 	var leagueEntryMap map[string][]LeagueDTO
 	// Performs the http request on Riots API to retrieve all leagues
@@ -65,6 +67,8 @@ func (c *RiotClient) GetLeaguesByTeamID(region string, teamIDs ...string) (map[s
 }
 
 // GetLeagueEntriesByTeamID : Get league entries mapped by team ID for a given list of team IDs
+// NOTE : This func is most likely returning no data as 5's teams are no longer
+// a think and can therefore not be in a league
 func (c *RiotClient) GetLeagueEntriesByTeamID(region string, teamIDs ...string) (map[string][]LeagueDTO, error) {
 	var leagueEntryMap map[string][]LeagueDTO
 	// Performs the http request on Riots API to retrieve all leagues
