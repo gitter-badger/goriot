@@ -7,6 +7,11 @@ import (
 	"strconv"
 )
 
+// ChampionOpts : A struct containing optional parameters for the champion endpoint
+type ChampionOpts struct {
+	FreeToPlay bool
+}
+
 // CChampionListDTO : A struct containing a collection of champion information
 type CChampionListDTO struct {
 	Champions []CChampionDTO `json:"champions"` // 	The collection of champion information.
@@ -23,10 +28,15 @@ type CChampionDTO struct {
 }
 
 // GetChampions : Retrieve all Champions
-func (c *RiotClient) GetChampions(region string, freeToPlay bool) (CChampionListDTO, error) {
+func (c *RiotClient) GetChampions(region string, opts *ChampionOpts) (CChampionListDTO, error) {
 	var championListDTO CChampionListDTO
-	// Uses the free to play optional value from func params
-	params := &url.Values{"freeToPlay": {strconv.FormatBool(freeToPlay)}}
+	// Builds out query params based on options passed
+	params := &url.Values{}
+	if opts != nil {
+		if opts.FreeToPlay == true {
+			params.Add("freeToPlay", "true")
+		}
+	}
 
 	// Performs the http request on Riots API to retrieve all the champions
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v1.2/champion", region, params)
