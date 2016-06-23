@@ -7,9 +7,24 @@ import (
 	"strconv"
 )
 
+// CChampionListDTO : A struct containing a collection of champion information
+type CChampionListDTO struct {
+	Champions []CChampionDTO `json:"champions"` // 	The collection of champion information.
+}
+
+// CChampionDTO : A struct containing champion information
+type CChampionDTO struct {
+	Active            bool `json:"active"`            // Indicates if the champion is active.
+	BotEnabled        bool `json:"botEnabled"`        // Bot enabled flag (for custom games).
+	BotMmEnabled      bool `json:"botMmEnabled"`      // Bot Match Made enabled flag (for Co-op vs. AI games).
+	FreeToPlay        bool `json:"freeToPlay"`        // Indicates if the champion is free to play. Free to play champions are rotated periodically.
+	ID                int  `json:"id"`                // Champion ID. For static information correlating to champion IDs, please refer to the LoL Static Data API.
+	RankedPlayEnabled bool `json:"rankedPlayEnabled"` // Ranked play enabled flag.
+}
+
 // GetChampions : Retrieve all Champions
-func (c *RiotClient) GetChampions(region string, freeToPlay bool) (ChampionListDTO, error) {
-	var championListDTO ChampionListDTO
+func (c *RiotClient) GetChampions(region string, freeToPlay bool) (CChampionListDTO, error) {
+	var championListDTO CChampionListDTO
 	// Uses the free to play optional value from func params
 	params := &url.Values{"freeToPlay": {strconv.FormatBool(freeToPlay)}}
 
@@ -27,8 +42,8 @@ func (c *RiotClient) GetChampions(region string, freeToPlay bool) (ChampionListD
 }
 
 // GetChampionByID : Gets data on a particular champion
-func (c *RiotClient) GetChampionByID(region string, id int) (ChampionDTO, error) {
-	var championDTO ChampionDTO
+func (c *RiotClient) GetChampionByID(region string, id int) (CChampionDTO, error) {
+	var championDTO CChampionDTO
 	// Performs the http request on Riots API to retrieve the champion data
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v1.2/champion/"+strconv.Itoa(id), region, nil)
 	if err != nil {
