@@ -56,7 +56,7 @@ func (c *RiotClient) GetFeaturedGames(region string) (FGFeaturedGames, error) {
 		return featuredGames, err
 	}
 
-	// Unmarshals the response JSON into our FeaturedGames struct
+	// Unmarshals the response JSON into our FGFeaturedGames struct
 	if err := json.Unmarshal(resBody, &featuredGames); err != nil {
 		return featuredGames, err
 	}

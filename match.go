@@ -3,8 +3,14 @@ package goriot
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 )
+
+// MatchOpts : A struct containing optional parameters for the match endpoint
+type MatchOpts struct {
+	IncludeTimeline bool
+}
 
 // MMatchDetail : A struct containing a match detail information
 type MMatchDetail struct {
@@ -256,11 +262,19 @@ type MPosition struct {
 }
 
 // GetMatchByID : Retrieve match by match ID
-func (c *RiotClient) GetMatchByID(region string, matchID int64, includeTimeLine bool) (MMatchDetail, error) {
+func (c *RiotClient) GetMatchByID(region string, matchID int64, opts *MatchOpts) (MMatchDetail, error) {
 	var match MMatchDetail
+	// Builds out query params based on options passed
+	params := &url.Values{}
+	if opts != nil {
+		if opts.IncludeTimeline == true {
+			params.Add("includeTimeline", "true")
+		}
+	}
+
 	// Performs the http request on Riots API to retrieve the match information
 	resBody, err := c.riotRequest("/api/lol/"+region+"/v2.2/match/"+
-		strconv.FormatInt(matchID, 10), region, nil)
+		strconv.FormatInt(matchID, 10), region, params)
 	if err != nil {
 		return match, err
 	}
