@@ -19,8 +19,8 @@ type LSDLLanguageStringsDTO struct {
 	Version string            `json:"version"`
 }
 
-// GetLanguageStrings : Retrieve language strings data
-func (c *RiotClient) GetLanguageStrings(region string, opts *StaticLangugesOpts) (LSDLLanguageStringsDTO, error) {
+// GetStaticLanguageStrings : Retrieve language strings data
+func (c *RiotClient) GetStaticLanguageStrings(region string, opts *StaticLangugesOpts) (LSDLLanguageStringsDTO, error) {
 	var languageStrings LSDLLanguageStringsDTO
 	params := &url.Values{}
 	// Builds out query params based on options passed
@@ -46,8 +46,8 @@ func (c *RiotClient) GetLanguageStrings(region string, opts *StaticLangugesOpts)
 	return languageStrings, nil
 }
 
-// GetLanguages : Retrieve supported languages data
-func (c *RiotClient) GetLanguages(region string) ([]string, error) {
+// GetStaticLanguages : Retrieve supported languages data
+func (c *RiotClient) GetStaticLanguages(region string) ([]string, error) {
 	var languageStrings []string
 
 	// Performs the http request on Riots API to retrieve all language strings

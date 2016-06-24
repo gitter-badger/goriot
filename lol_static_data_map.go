@@ -38,8 +38,8 @@ type LSDMImageDTO struct {
 	Y      int    `json:"y"`
 }
 
-// GetMaps : Retrieve map data
-func (c *RiotClient) GetMaps(region string, opts *StaticMapOpts) (LSDMMapDataDTO, error) {
+// GetStaticMaps : Retrieve map data
+func (c *RiotClient) GetStaticMaps(region string, opts *StaticMapOpts) (LSDMMapDataDTO, error) {
 	var maps LSDMMapDataDTO
 	params := &url.Values{}
 	// Builds out query params based on options passed
