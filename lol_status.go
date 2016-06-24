@@ -56,8 +56,8 @@ type LSTranslation struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
-// GetShards : Get shard list
-func (c *RiotClient) GetShards() ([]LSShard, error) {
+// GetStaticShards : Get shard list
+func (c *RiotClient) GetStaticShards() ([]LSShard, error) {
 	var shards []LSShard
 	// Performs the http request on Riots API to retrieve a list of shards
 	resBody, err := c.riotRequest("/shards", "", nil)
@@ -72,8 +72,8 @@ func (c *RiotClient) GetShards() ([]LSShard, error) {
 	return shards, nil
 }
 
-// GetShardStatus : Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region
-func (c *RiotClient) GetShardStatus(region string) (LSShardStatus, error) {
+// GetStaticShardStatus : Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region
+func (c *RiotClient) GetStaticShardStatus(region string) (LSShardStatus, error) {
 	var shardStatus LSShardStatus
 	// Performs the http request on Riots API to retrieve a specific shard status
 	resBody, err := c.riotRequest("/shards/"+region, region, nil)

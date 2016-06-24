@@ -14,7 +14,7 @@ type ChampionOpts struct {
 
 // CChampionListDTO : A struct containing a collection of champion information
 type CChampionListDTO struct {
-	Champions []CChampionDTO `json:"champions"` // 	The collection of champion information.
+	Champions []CChampionDTO `json:"champions"` // The collection of champion information.
 }
 
 // CChampionDTO : A struct containing champion information

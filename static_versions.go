@@ -3,8 +3,8 @@ package goriot
 
 import "encoding/json"
 
-// GetVersions : Retrieve version data
-func (c *RiotClient) GetVersions(region string) ([]string, error) {
+// GetStaticVersions : Retrieve version data
+func (c *RiotClient) GetStaticVersions(region string) ([]string, error) {
 	var versions []string
 	// Performs the http request on Riots API to retrieve version data
 	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/versions", "global", nil)
