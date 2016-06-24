@@ -15,7 +15,7 @@ go get github.com/sdwolfe32/goriot
 All that's needed to form set up a goriot client is to call the `NewRiotClient()` func. For example:
 
 ```
-client, _ := NewRiotClient("API_KEY_HERE")
+client := NewRiotClient("API_KEY_HERE")
 ```
 You can then easily perform requests on the Riot API using the above generated client struct. For example:
 ```
@@ -38,10 +38,7 @@ import (
 var sumName = "itsViz"
 
 func main() {
-	c, err := NewRiotClient("API_KEY_HERE")
-	if err != nil {
-		log.Fatal(err)
-	}
+	c := NewRiotClient("API_KEY_HERE")
 
 	summoners := c.GetSummonersByName("na", sumName)
 	if err != nil {
