@@ -204,7 +204,7 @@ func (c *RiotClient) GetStaticItems(region string, opts *StaticItemOpts) (LSDIIt
 	}
 
 	// Performs the http request on Riots API to retrieve all items
-	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/item", region, params)
+	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/item", "global", params)
 	if err != nil {
 		return items, err
 	}
@@ -234,7 +234,7 @@ func (c *RiotClient) GetStaticItemByID(region string, id int, opts *StaticItemOp
 	}
 
 	// Performs the http request on Riots API to retrieve the specified item
-	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/item/"+strconv.Itoa(id), region, params)
+	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/item/"+strconv.Itoa(id), "global", params)
 	if err != nil {
 		return item, err
 	}

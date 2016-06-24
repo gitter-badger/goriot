@@ -188,7 +188,7 @@ func (c *RiotClient) GetStaticChampions(region string, opts *StaticChampionOpts)
 	}
 
 	// Performs the http request on Riots API to retrieve version data
-	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/champion", region, params)
+	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/champion", "global", params)
 	if err != nil {
 		return champions, err
 	}
@@ -218,7 +218,7 @@ func (c *RiotClient) GetStaticChampionByID(region string, championID int, opts *
 	}
 
 	// Performs the http request on Riots API to retrieve version data
-	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/champion"+strconv.Itoa(championID), region, params)
+	resBody, err := c.riotRequest("/api/lol/static-data/"+region+"/v1.2/champion"+strconv.Itoa(championID), "global", params)
 	if err != nil {
 		return champion, err
 	}
