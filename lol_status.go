@@ -32,21 +32,21 @@ type LSService struct {
 
 // LSIncident : A struct containing information on a service incident
 type LSIncident struct {
-	Active    bool      `json:"active"`
-	CreatedAt string    `json:"created_at"`
-	ID        int64     `json:"id"`
-	Updates   []Message `json:"updates"`
+	Active    bool        `json:"active"`
+	CreatedAt string      `json:"created_at"`
+	ID        int64       `json:"id"`
+	Updates   []LSMessage `json:"updates"`
 }
 
 // LSMessage : A struct containing message information of an incident
 type LSMessage struct {
-	Author       string        `json:"author"`
-	Content      string        `json:"content"`
-	CreatedAt    string        `json:"created_at"`
-	ID           string        `json:"id"`
-	Severity     string        `json:"serverity"`
-	Translations []Translation `json:"translations"`
-	UpdatedAt    string        `json:"updated_at"`
+	Author       string          `json:"author"`
+	Content      string          `json:"content"`
+	CreatedAt    string          `json:"created_at"`
+	ID           string          `json:"id"`
+	Severity     string          `json:"serverity"`
+	Translations []LSTranslation `json:"translations"`
+	UpdatedAt    string          `json:"updated_at"`
 }
 
 // LSTranslation : A struct containing translation information

@@ -28,8 +28,8 @@ type SChampionStatsDTO struct {
 
 // SPlayerStatsSummaryListDTO : A struct containing a collection of player stats summary information
 type SPlayerStatsSummaryListDTO struct {
-	PlayerStatSummaries []PlayerStatsSummaryDTO `json:"playerStatSummaries"` // Collection of player stats summaries associated with the summoner
-	SummonerID          int64                   `json:"summonerId"`          // Summoner ID
+	PlayerStatSummaries []SPlayerStatsSummaryDTO `json:"playerStatSummaries"` // Collection of player stats summaries associated with the summoner
+	SummonerID          int64                    `json:"summonerId"`          // Summoner ID
 }
 
 // SPlayerStatsSummaryDTO : A struct containing player stats summary information

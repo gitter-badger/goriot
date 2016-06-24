@@ -22,7 +22,7 @@ type MMatchDetail struct {
 	MatchType             string                 `json:"matchType"`             // Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
 	MatchVersion          string                 `json:"matchVersion"`          // Match version
 	ParticipantIdentities []MParticipantIdentity `json:"participantIdentities"` // Participant identity information
-	Participants          []MMatchParticipant    `json:"participants"`          // Participant information
+	Participants          []MParticipant         `json:"participants"`          // Participant information
 	PlatformID            string                 `json:"platformId"`            // Platform ID of the match
 	QueueType             string                 `json:"queueType"`             // Match queue type
 	Region                string                 `json:"region"`                // Region where the match was played
