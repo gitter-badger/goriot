@@ -1,5 +1,7 @@
 # goriot
 
+[![Join the chat at https://gitter.im/sdwolfe32/goriot](https://badges.gitter.im/sdwolfe32/goriot.svg)](https://gitter.im/sdwolfe32/goriot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![alt text](/etc/goriotsmall.png "goriot client")
 
 goriot is a simple set of API bindings for the Riot API written in Go.
